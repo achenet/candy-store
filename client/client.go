@@ -4,6 +4,9 @@ import (
 	"github.com/achenet/candy-store/calculator"
 	"io"
 	"net/http"
+
+	"golang.org/x/net/html"
+	"strings"
 )
 
 func GetHTMLPage(url string) (string, error) {
@@ -23,7 +26,10 @@ func GetHTMLPage(url string) (string, error) {
 	return string(body), nil
 }
 
-func ParseHTMLPageAndCreateTable() []calculator.CustomerEntry {
+func ParseHTMLPageAndCreateTable(webpage string) []calculator.CustomerEntry {
 
+    r := strings.NewReader(webpage)
+    z := html.NewTokenizer(r)
+    _ = z
 	return []calculator.CustomerEntry{}
 }

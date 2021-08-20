@@ -15,5 +15,10 @@ func TestGetHTMLPage(t *testing.T) {
 }
 
 func TestParseHTMLPageAndCreateTable(t *testing.T) {
-	fmt.Println(ParseHTMLPageAndCreateTable())
+	page, err := GetHTMLPage("https://candystore.zimpler.net/")
+	if err != nil {
+		t.Error(err.Error())
+	}
+
+    fmt.Println(ParseHTMLPageAndCreateTable(page))
 }

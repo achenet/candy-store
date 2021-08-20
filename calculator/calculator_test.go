@@ -102,7 +102,7 @@ func TestCalculateTopCustomerFavorites(t *testing.T) {
 			expected: []TopCustomerFavourite{
 				{
 					Name:           "Jonas",
-					FavouriteSnack: "Center",
+					FavouriteSnack: "Geisha",
 					TotalSnacks:    1962,
 				},
 				{
