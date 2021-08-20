@@ -1,7 +1,11 @@
 // Package calculator takes as input a list of customer entries and returns a list of favourite snacks for top customers.
 package calculator
 
-import ()
+import (
+	"encoding/json"
+	"fmt"
+	"sort"
+)
 
 type TopCustomerFavourite struct {
 	Name           string `json:"name"`
@@ -51,6 +55,11 @@ func createTopCustomerFavouritesFromHashmap(m map[string]customerData) []TopCust
 		})
 	}
 
+	// Sort list by total snacks
+	sort.Slice(customerFavourites, func(i, j int) bool {
+		return customerFavourites[i].TotalSnacks > customerFavourites[j].TotalSnacks
+	})
+
 	return customerFavourites
 }
 
@@ -65,4 +74,13 @@ func findFavouriteCandyAndTotalSnacks(data customerData) (string, int) {
 		total += amountEaten
 	}
 	return favouriteCandy, total
+}
+
+func PrintAsJson(customerFavourites []TopCustomerFavourite) error {
+	bytes, err := json.Marshal(customerFavourites)
+	if err != nil {
+		return err
+	}
+	fmt.Println(string(bytes))
+	return nil
 }
