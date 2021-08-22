@@ -153,7 +153,7 @@ func extractDetailsTable(n *html.Node) []calculator.CustomerEntry {
 		}
 	}
 
-    f(n)
+	f(n)
 	return detailsTable
 }
 
@@ -169,10 +169,10 @@ func createCustomerEntry(n *html.Node) calculator.CustomerEntry {
 			switch i {
 			case 0:
 				entry.Name = n.Data
-                i++
+				i++
 			case 1:
 				entry.Candy = n.Data
-                i++
+				i++
 			case 2:
 				num, _ := strconv.Atoi(n.Data)
 				entry.Eaten = num
@@ -184,6 +184,6 @@ func createCustomerEntry(n *html.Node) calculator.CustomerEntry {
 	}
 
 	f(n)
-    fmt.Println("adding entry:", entry)
+	fmt.Println("adding entry:", entry)
 	return entry
 }

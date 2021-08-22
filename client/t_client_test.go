@@ -17,7 +17,7 @@ func TestGetHTMLPage(t *testing.T) {
 }
 
 func TestParseHTMLPageForSummaryTable(t *testing.T) {
-    fmt.Println("Test summary table")
+	fmt.Println("Test summary table")
 	page, err := GetHTMLPage("https://candystore.zimpler.net/")
 	if err != nil {
 		t.Error(err.Error())
@@ -64,107 +64,106 @@ func areEqual(first, second []calculator.TopCustomerFavourite) bool {
 	return true
 }
 
-
 func TestParseHTMLPageForDetailsTable(t *testing.T) {
-    fmt.Println("Test details table")
+	fmt.Println("Test details table")
 	page, err := GetHTMLPage("https://candystore.zimpler.net/")
 	if err != nil {
 		t.Error(err.Error())
 	}
-    
-    expectedDetailsTable := []calculator.CustomerEntry{
-        {
-            Name: "Annika",
-            Candy: "Geisha",
-            Eaten: 100,
-        },
-        {
-            Name: "Jonas",
-            Candy: "Geisha",
-            Eaten: 200,
-        },
-        {
-            Name: "Jonas",
-            Candy: "Kexchoklad",
-            Eaten: 100,
-        },
-        {
-            Name: "Aadya",
-            Candy: "Nötchoklad",
-            Eaten: 2,
-        },
-        {
-            Name: "Jonas",
-            Candy: "Nötchoklad",
-            Eaten: 3,
-        },
-        {
-            Name: "Jane",
-            Candy: "Nötchoklad",
-            Eaten: 17,
-        },
-        {
-            Name: "Annika",
-            Candy: "Geisha",
-            Eaten: 100,
-        },
-        {
-            Name: "Jonas",
-            Candy: "Geisha",
-            Eaten: 700,
-        },
-        {
-            Name: "Jane",
-            Candy: "Nötchoklad",
-            Eaten: 4,
-        },
-        {
-            Name: "Aadya",
-            Candy: "Center",
-            Eaten: 7,
-        },
-        {
-            Name: "Jonas",
-            Candy: "Geisha",
-            Eaten: 900,
-        },
-        {
-            Name: "Jane",
-            Candy: "Nötchoklad",
-            Eaten: 1,
-        },
-        {
-            Name: "Jonas",
-            Candy: "Kexchoklad",
-            Eaten: 12,
-        },
-        {
-            Name: "Jonas",
-            Candy: "Plopp",
-            Eaten: 40,
-        },
-        {
-            Name: "Jonas",
-            Candy: "Center",
-            Eaten: 27,
-        },
-        {
-            Name: "Aadya",
-            Candy: "Center",
-            Eaten: 2,
-        },
-        {
-            Name: "Annika",
-            Candy: "Center",
-            Eaten: 8,
-        },
-    }
 
-    got := ParseHTMLPageForDetailsTable(page)
+	expectedDetailsTable := []calculator.CustomerEntry{
+		{
+			Name:  "Annika",
+			Candy: "Geisha",
+			Eaten: 100,
+		},
+		{
+			Name:  "Jonas",
+			Candy: "Geisha",
+			Eaten: 200,
+		},
+		{
+			Name:  "Jonas",
+			Candy: "Kexchoklad",
+			Eaten: 100,
+		},
+		{
+			Name:  "Aadya",
+			Candy: "Nötchoklad",
+			Eaten: 2,
+		},
+		{
+			Name:  "Jonas",
+			Candy: "Nötchoklad",
+			Eaten: 3,
+		},
+		{
+			Name:  "Jane",
+			Candy: "Nötchoklad",
+			Eaten: 17,
+		},
+		{
+			Name:  "Annika",
+			Candy: "Geisha",
+			Eaten: 100,
+		},
+		{
+			Name:  "Jonas",
+			Candy: "Geisha",
+			Eaten: 700,
+		},
+		{
+			Name:  "Jane",
+			Candy: "Nötchoklad",
+			Eaten: 4,
+		},
+		{
+			Name:  "Aadya",
+			Candy: "Center",
+			Eaten: 7,
+		},
+		{
+			Name:  "Jonas",
+			Candy: "Geisha",
+			Eaten: 900,
+		},
+		{
+			Name:  "Jane",
+			Candy: "Nötchoklad",
+			Eaten: 1,
+		},
+		{
+			Name:  "Jonas",
+			Candy: "Kexchoklad",
+			Eaten: 12,
+		},
+		{
+			Name:  "Jonas",
+			Candy: "Plopp",
+			Eaten: 40,
+		},
+		{
+			Name:  "Jonas",
+			Candy: "Center",
+			Eaten: 27,
+		},
+		{
+			Name:  "Aadya",
+			Candy: "Center",
+			Eaten: 2,
+		},
+		{
+			Name:  "Annika",
+			Candy: "Center",
+			Eaten: 8,
+		},
+	}
+
+	got := ParseHTMLPageForDetailsTable(page)
 	if !areEqualCustomerEntry(expectedDetailsTable, got) {
 		t.Error("Got:", got, "\nExpected:", expectedDetailsTable)
 	}
-    fmt.Println(got)
+	fmt.Println(got)
 }
 
 func areEqualCustomerEntry(first, second []calculator.CustomerEntry) bool {

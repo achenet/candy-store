@@ -69,7 +69,7 @@ func findFavouriteCandyAndTotalSnacks(data customerData) (string, int) {
 	total := 0
 	for candyName, amountEaten := range data {
 		if amountEaten > maxEaten {
-            maxEaten = amountEaten
+			maxEaten = amountEaten
 			favouriteCandy = candyName
 		}
 		total += amountEaten
