@@ -66,13 +66,11 @@ func contains(attrList []html.Attribute, wantedAttr html.Attribute) bool {
 }
 
 func extractSummaryTable(n *html.Node) []calculator.TopCustomerFavourite {
-	fmt.Println("extract summary table")
 	summaryList := make([]calculator.TopCustomerFavourite, 0)
 	var f func(*html.Node)
 
 	f = func(n *html.Node) {
 		if n.Type == html.TextNode && n.Parent.Data == "td" {
-			fmt.Println(n.Data)
 			if hasAttributeKey(n.Parent.Attr, "x-total-candy") {
 				summaryList = append(summaryList, calculator.TopCustomerFavourite{
 					Name:        n.Data,
@@ -113,8 +111,8 @@ func hasAttributeKey(attrList []html.Attribute, key string) bool {
 	return false
 }
 
-func ParseHTMLPageForDetailsTable(page string) []calculator.CustomerEntry {
-	detailsTable := make([]calculcator.CustomerEntry, 0)
+func ParseHTMLPageForDetailsTable(webpage string) []calculator.CustomerEntry {
+	detailsTable := make([]calculator.CustomerEntry, 0)
 	r := strings.NewReader(webpage)
 
 	doc, err := html.Parse(r)
@@ -155,6 +153,7 @@ func extractDetailsTable(n *html.Node) []calculator.CustomerEntry {
 		}
 	}
 
+    f(n)
 	return detailsTable
 }
 
@@ -166,15 +165,17 @@ func createCustomerEntry(n *html.Node) calculator.CustomerEntry {
 
 	var f func(*html.Node)
 	f = func(n *html.Node) {
-		if n.Type == TextNode {
+		if n.Type == html.TextNode && n.Parent.Data == "td" && n.Parent.Type == html.ElementNode {
 			switch i {
 			case 0:
 				entry.Name = n.Data
+                i++
 			case 1:
-				entry.Type = n.Data
+				entry.Candy = n.Data
+                i++
 			case 2:
 				num, _ := strconv.Atoi(n.Data)
-				entry.Amount = num
+				entry.Eaten = num
 			}
 		}
 		for c := n.FirstChild; c != nil; c = c.NextSibling {
@@ -183,5 +184,6 @@ func createCustomerEntry(n *html.Node) calculator.CustomerEntry {
 	}
 
 	f(n)
+    fmt.Println("adding entry:", entry)
 	return entry
 }
