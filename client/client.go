@@ -165,7 +165,7 @@ func createCustomerEntry(n *html.Node) calculator.CustomerEntry {
 
 	var f func(*html.Node)
 	f = func(n *html.Node) {
-		if n.Type == html.TextNode && n.Parent.Data == "td" && n.Parent.Type == html.ElementNode {
+		if n.Type == html.TextNode && n.Parent.Data == "td" && n.Parent.Type == html.ElementNode && n.Data != "" {
 			switch i {
 			case 0:
 				entry.Name = n.Data
