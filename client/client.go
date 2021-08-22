@@ -112,3 +112,76 @@ func hasAttributeKey(attrList []html.Attribute, key string) bool {
 	}
 	return false
 }
+
+func ParseHTMLPageForDetailsTable(page string) []calculator.CustomerEntry {
+	detailsTable := make([]calculcator.CustomerEntry, 0)
+	r := strings.NewReader(webpage)
+
+	doc, err := html.Parse(r)
+	if err != nil {
+		fmt.Println(err.Error())
+		return nil
+	}
+
+	var f func(*html.Node)
+	f = func(n *html.Node) {
+		if n.Type == html.ElementNode && n.Data == "table" {
+			if contains(n.Attr, html.Attribute{
+				Key: "class",
+				Val: "top.customers details",
+			}) {
+				detailsTable = extractDetailsTable(n)
+			}
+		}
+		for c := n.FirstChild; c != nil; c = c.NextSibling {
+			f(c)
+		}
+	}
+
+	f(doc)
+	return detailsTable
+}
+
+func extractDetailsTable(n *html.Node) []calculator.CustomerEntry {
+	detailsTable := make([]calculator.CustomerEntry, 0)
+
+	var f func(*html.Node)
+	f = func(n *html.Node) {
+		if n.Type == html.ElementNode && n.Data == "tr" {
+			detailsTable = append(detailsTable, createCustomerEntry(n))
+		}
+		for c := n.FirstChild; c != nil; c = c.NextSibling {
+			f(c)
+		}
+	}
+
+	return detailsTable
+}
+
+func createCustomerEntry(n *html.Node) calculator.CustomerEntry {
+	// We know that n is a row
+	// As such, it has 3 <td> children, each of which has one text child.
+	i := 0
+	entry := calculator.CustomerEntry{}
+
+	var f func(*html.Node)
+	f = func(n *html.Node) {
+		if n.Type == TextNode {
+			switch i {
+			case 0:
+				entry.Name = n.Data
+			case 1:
+				entry.Type = n.Data
+			case 2:
+				num, _ := strconv.Atoi(n.Data)
+				entry.Amount = num
+			}
+		}
+		for c := n.FirstChild; c != nil; c = c.NextSibling {
+			f(c)
+		}
+	}
+
+	f(n)
+	return entry
+}
