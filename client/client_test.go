@@ -163,7 +163,6 @@ func TestParseHTMLPageForDetailsTable(t *testing.T) {
 	if !areEqualCustomerEntry(expectedDetailsTable, got) {
 		t.Error("Got:", got, "\nExpected:", expectedDetailsTable)
 	}
-	fmt.Println(got)
 }
 
 func areEqualCustomerEntry(first, second []calculator.CustomerEntry) bool {

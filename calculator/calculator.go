@@ -2,8 +2,6 @@
 package calculator
 
 import (
-	"encoding/json"
-	"fmt"
 	"sort"
 )
 
@@ -77,11 +75,3 @@ func findFavouriteCandyAndTotalSnacks(data customerData) (string, int) {
 	return favouriteCandy, total
 }
 
-func PrintAsJson(customerFavourites []TopCustomerFavourite) error {
-	bytes, err := json.Marshal(customerFavourites)
-	if err != nil {
-		return err
-	}
-	fmt.Println(string(bytes))
-	return nil
-}

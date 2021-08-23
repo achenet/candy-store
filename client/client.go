@@ -154,6 +154,11 @@ func extractDetailsTable(n *html.Node) []calculator.CustomerEntry {
 	}
 
 	f(n)
+
+    // There is an as of yet unresolved bug where the first entry of the table is {"" "" 0}
+    // Remove first entry to fix this bug
+    detailsTable = detailsTable[1:]
+
 	return detailsTable
 }
 
@@ -184,6 +189,6 @@ func createCustomerEntry(n *html.Node) calculator.CustomerEntry {
 	}
 
 	f(n)
-	fmt.Println("adding entry:", entry)
 	return entry
 }
+

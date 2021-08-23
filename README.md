@@ -11,3 +11,11 @@ go mod vendor
 go build
 ./candy-store
 ```
+
+## Alt mode
+The output can be generated two different ways. The default is to parse the top customer summary table of the webpage. The alternative is to parse the top customer details table of the webpage, and then calculate the favourites from that.
+
+To use the alternative method, simply use the `alt` flag when running the program.
+```
+./candy-store -alt
+```
