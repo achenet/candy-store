@@ -7,6 +7,7 @@ This program uses go modules. Please use the command `go mod vendor` to get all 
 ## Install and run
 ```
 git clone https://github.com/achenet/candy-store
+cd candy-store
 go mod vendor
 go build
 ./candy-store
